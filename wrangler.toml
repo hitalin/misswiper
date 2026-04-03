@@ -1,0 +1,5 @@
+name = "misswiper"
+compatibility_date = "2026-04-03"
+
+[site]
+bucket = "./dist"
