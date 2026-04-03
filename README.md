@@ -1,4 +1,4 @@
-# yamisskey-revision
+# misswiper
 
 ブラウザ上から特定のインスタンスにあるあなたのノートを安全に削除します。
 
@@ -26,7 +26,7 @@ Node.js v22以降が必要です。
 以下の手順に沿ってください。
 
 1. このリポジトリをクローン
-2. `yamisskey-revision`ディレクトリ内で、`npm install`を行い、依存環境をインストール
+2. `misswiper`ディレクトリ内で、`npm install`を行い、依存環境をインストール
 3. `npm run dev`で開発サーバーを起動
 
 ビルドは`npm run build`で行うことができます。成果物のプレビューが必要な場合は`npm run preview`を実行してください。
