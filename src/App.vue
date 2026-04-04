@@ -25,7 +25,7 @@
 
       <!-- ヘッダー -->
       <div class="header">
-        <h1 class="title">Note Cleaner</h1>
+        <h1 class="title">Misswiper</h1>
         <p class="subtitle">Misskeyの黒歴史をきれいさっぱり</p>
         <div class="badge">
           <span class="badge-dot" />
