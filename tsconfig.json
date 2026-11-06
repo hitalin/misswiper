@@ -1,18 +1,18 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "types": ["node"],
-    "isolatedModules": true,
-    "skipLibCheck": true
-  },
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+	"extends": "@vue/tsconfig/tsconfig.json",
+	"include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"types": ["node"],
+		"isolatedModules": true,
+		"skipLibCheck": true
+	},
+	"references": [
+		{
+			"path": "./tsconfig.node.json"
+		}
+	]
 }

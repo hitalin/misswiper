@@ -100,66 +100,66 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Trash2, AlertCircle, CheckCircle2, Loader2 } from 'lucide-vue-next';
-import { MisskeyAPI } from './api';
-import type { User, Note } from './types';
+import { AlertCircle, CheckCircle2, Loader2, Trash2 } from "lucide-vue-next";
+import { ref } from "vue";
+import { MisskeyAPI } from "./api";
+import type { Note, User } from "./types";
 
-const host = ref('');
-const token = ref('');
-const status = ref('');
-const error = ref<string>('');
+const host = ref("");
+const token = ref("");
+const status = ref("");
+const error = ref<string>("");
 const isLoading = ref(false);
 const progress = ref({ unpinned: 0, deleted: 0, total: 0 });
 
 const handleSubmit = async () => {
-  error.value = '';
-  status.value = '';
-  isLoading.value = true;
-  progress.value = { unpinned: 0, deleted: 0, total: 0 };
+	error.value = "";
+	status.value = "";
+	isLoading.value = true;
+	progress.value = { unpinned: 0, deleted: 0, total: 0 };
 
-  try {
-    const api = new MisskeyAPI(host.value, token.value);
+	try {
+		const api = new MisskeyAPI(host.value, token.value);
 
-    const user = await api.getUser();
-    status.value = `${user.name ?? user.username} @${user.username} (${user.notesCount} ノート)`;
+		const user = await api.getUser();
+		status.value = `${user.name ?? user.username} @${user.username} (${user.notesCount} ノート)`;
 
-    if (user.pinnedNotes?.length) {
-      for (const note of user.pinnedNotes) {
-        if (note.id) {
-          await api.unpinNote(note.id);
-          progress.value.unpinned++;
-        }
-      }
-    }
+		if (user.pinnedNotes?.length) {
+			for (const note of user.pinnedNotes) {
+				if (note.id) {
+					await api.unpinNote(note.id);
+					progress.value.unpinned++;
+				}
+			}
+		}
 
-    let offset = 0;
-    let deleted = 0;
-    while (true) {
-      const notes = await api.getNotes(user.id!, offset);
-      if (!notes.length) break;
+		let offset = 0;
+		let deleted = 0;
+		while (true) {
+			const notes = await api.getNotes(user.id!, offset);
+			if (!notes.length) break;
 
-      for (const note of notes) {
-        if (note.id) {
-          try {
-            await api.deleteNote(note.id).then(() => deleted++);
-            progress.value.deleted = deleted;
-            progress.value.total = user.notesCount;
-          } catch (error) {
-            console.error(`削除失敗: ${note.id}`);
-          }
-        }
-      }
+			for (const note of notes) {
+				if (note.id) {
+					try {
+						await api.deleteNote(note.id).then(() => deleted++);
+						progress.value.deleted = deleted;
+						progress.value.total = user.notesCount;
+					} catch (error) {
+						console.error(`削除失敗: ${note.id}`);
+					}
+				}
+			}
 
-      offset += notes.length;
-    }
+			offset += notes.length;
+		}
 
-    status.value = `完了! ${deleted}件のノートを削除しました`;
-  } catch (err) {
-    error.value = err instanceof Error ? err.message : String(err);
-  } finally {
-    isLoading.value = false;
-  }
+		status.value = `完了! ${deleted}件のノートを削除しました`;
+	} catch (err) {
+		error.value = err instanceof Error ? err.message : String(err);
+	} finally {
+		isLoading.value = false;
+	}
 };
 </script>
 
